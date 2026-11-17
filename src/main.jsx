@@ -1,41 +1,160 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowUpRight, Menu, X, MoveUpRight } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Menu, X, Play } from 'lucide-react';
 import './style.css';
 
+// Temporary showreel excerpts. Replace with real project films, posters and descriptions.
 const projects = [
-  {number:'01',name:'SOFT SIGNAL',type:'3D / CHARACTER / DIRECTION',year:'2026',theme:'peach',shape:'soft',label:'A little out of this world.'},
-  {number:'02',name:'IN BLOOM',type:'2D / MIXED MEDIA',year:'2026',theme:'violet',shape:'flower',label:'Ideas in full color.'},
-  {number:'03',name:'GOOD VIBRATIONS',type:'MOTION / BRAND FILM',year:'2025',theme:'lime',shape:'rings',label:'Everything moves.'}
+  { id: '01', start: 7, title: 'Showreel selection 01', description: 'A moment from the Yellow Couch showreel. Individual project details are coming soon.', color: 'warm' },
+  { id: '02', start: 55, title: 'Showreel selection 02', description: 'A moment from the Yellow Couch showreel. Individual project details are coming soon.', color: 'purple' },
+  { id: '03', start: 68, title: 'Showreel selection 03', description: 'A moment from the Yellow Couch showreel. Individual project details are coming soon.', color: 'gold' },
+  { id: '04', start: 18, title: 'Showreel selection 04', description: 'A moment from the Yellow Couch showreel. Individual project details are coming soon.', color: 'green' }
 ];
-function Art({shape}) {return <div className={'art art-'+shape} aria-hidden="true"><div className="art-shadow"/><div className="art-core"/><div className="art-accent"/></div>}
-function App(){
- const [menu,setMenu]=useState(false);
- useEffect(()=>{const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));return()=>observer.disconnect()},[]);
- return <>
-  <main id="top"><section className="opening-video" aria-label="Opening animation video">
-    <video className="opening-video-media" autoPlay muted loop playsInline preload="metadata" aria-label="Animation studio opening film">
-      <source src="/opening-muted.mp4" type="video/mp4" />
-    </video>
-  </section>
-  <header className="nav"><a className="logo" href="#top" aria-label="Frame home">FRAME<span className="logo-dot">●</span></a><nav className={menu?'nav-links open':'nav-links'} aria-label="Main navigation"><a href="#showreel" onClick={()=>setMenu(false)}>SHOWREEL</a><a href="#work" onClick={()=>setMenu(false)}>WORK</a><a href="#about" onClick={()=>setMenu(false)}>STUDIO</a><a href="#contact" onClick={()=>setMenu(false)}>CONTACT <ArrowUpRight size={15}/></a></nav><button className="menu-toggle" aria-label={menu?'Close menu':'Open menu'} onClick={()=>setMenu(!menu)}>{menu?<X/>:<Menu/>}</button></header>
-  <section className="showreel-section" id="showreel">
-    <div className="showreel-content">
-      <span className="eyebrow">01 / SHOWREEL</span>
-      <h1>OUR <em>SHOWREEL</em></h1>
-      <p>A glimpse into the worlds we bring to life.</p>
-      <video className="showreel-player" controls playsInline preload="metadata" aria-label="Animation studio showreel with sound">
-        <source src="/showreel-with-audio.mp4" type="video/mp4" />
-        Your browser does not support HTML5 video.
-      </video>
-    </div>
-  </section>
-  <section className="work section" id="work"><div className="section-head reveal"><span className="eyebrow">02 / THE GOOD STUFF</span><h2>SELECTED <em>WORK</em><span className="asterisk">✳</span></h2><p>A few worlds we've imagined. Each one different, each one made with intention.</p></div><div className="projects">{projects.map(p=><article className="project reveal" key={p.number}><div className={'project-visual '+p.theme}><div className="project-top"><span>{p.number} / FEATURED PROJECT</span><span>{p.year}</span></div><Art shape={p.shape}/><span className="project-caption">{p.label}</span><span className="project-arrow"><ArrowUpRight size={22}/></span></div><div className="project-info"><h3>{p.name}</h3><span>{p.type}</span></div></article>)}</div><p className="demo-note">Concept portfolio: these are original CSS visuals and placeholder project names, not real client work.</p></section>
-  <section className="manifesto" id="about"><div className="manifesto-inner reveal"><span className="eyebrow">03 / WHO WE ARE</span><h2>NO TWO<br/>IDEAS <span>LOOK</span><br/>THE SAME.</h2><div className="manifesto-bottom"><p>So why should they move the same? We're a multidisciplinary animation studio mixing techniques, breaking formats, and making work that's impossible to ignore.</p><span className="orbit-mark">✳</span></div></div></section>
-  <section className="services section"><div className="section-head reveal"><span className="eyebrow">04 / WHAT WE DO</span><h2>OUR <em>PLAYGROUND</em></h2></div><div className="service-list">{[['01','2D ANIMATION','Frame by frame, full of character.'],['02','3D & CGI','A new dimension of possibility.'],['03','MOTION DESIGN','Visual identities with a pulse.'],['04','MIXED MEDIA','The best of every world.']].map(s=><div className="service reveal" key={s[0]}><span>{s[0]}</span><h3>{s[1]}</h3><p>{s[2]}</p><MoveUpRight size={20}/></div>)}</div></section>
-  <section className="contact" id="contact"><div className="contact-inner reveal"><span className="eyebrow">05 / LET'S MAKE SOMETHING</span><h2>HAVE A<br/><span>WILD IDEA?</span></h2><p>We'd love to hear about it.</p><a className="contact-button" href="mailto:hello@example.com?subject=Let's%20make%20something">LET'S TALK <ArrowUpRight size={21}/></a><p className="placeholder-warning">Demo email address — replace before publishing publicly.</p></div></section></main>
-  <footer><a className="logo" href="#top">FRAME<span className="logo-dot">●</span></a><span>© {new Date().getFullYear()} FRAME STUDIO — DEMO CONCEPT</span><a href="#top">BACK TO TOP ↑</a></footer>
- </>
+const capabilities = [
+  ['Creative direction', 'Ideas, storytelling and a distinctive visual language.'],
+  ['2D & 3D animation', 'Handcrafted motion, characters and entire worlds.'],
+  ['Live action', 'Filmmaking, photography and real-world production.'],
+  ['Mixed media & AI', 'Combining techniques, with AI as a powerful creative production tool.']
+];
+
+function ReelStill({ start }) {
+  const ref = useRef(null);
+  const onMetadata = () => {
+    const v = ref.current;
+    if (v && Number.isFinite(v.duration)) v.currentTime = Math.min(start, Math.max(0, v.duration - 0.1));
+  };
+  return <video ref={ref} className="thumbnail-video" src="/showreel-with-audio.mp4" muted playsInline preload="metadata" onLoadedMetadata={onMetadata} onSeeked={e => e.currentTarget.pause()} tabIndex={-1} aria-hidden="true" disablePictureInPicture />;
 }
 
-createRoot(document.getElementById('root')).render(<App/>);
+function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const modalVideo = useRef(null);
+  const closeButton = useRef(null);
+  const previousFocus = useRef(null);
+  const closeMenu = () => setMenuOpen(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    }), { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!selected) return;
+    previousFocus.current = document.activeElement;
+    document.body.style.overflow = 'hidden';
+    closeButton.current?.focus();
+    const onKey = e => {
+      if (e.key === 'Escape') setSelected(null);
+      if (e.key === 'Tab') {
+        const controls = document.querySelector('.project-modal')?.querySelectorAll('button, video[controls]');
+        if (!controls?.length) return;
+        const first = controls[0], last = controls[controls.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+      previousFocus.current?.focus?.();
+    };
+  }, [selected]);
+
+  useEffect(() => {
+    const v = modalVideo.current;
+    if (!selected || !v) return;
+    const seek = () => { try { v.currentTime = selected.start; } catch (_) {} };
+    if (v.readyState >= 1) seek();
+    else v.addEventListener('loadedmetadata', seek, { once: true });
+    return () => v.removeEventListener('loadedmetadata', seek);
+  }, [selected]);
+
+  return <>
+    <header className="site-header">
+      <a className="wordmark" href="#top" onClick={closeMenu} aria-label="Yellow Couch — back to top">YELLOW COUCH</a>
+      <nav className={menuOpen ? 'nav-links is-open' : 'nav-links'} id="site-navigation" aria-label="Main navigation">
+        <a href="#showreel" onClick={closeMenu}>SHOWREEL</a>
+        <a href="#work" onClick={closeMenu}>WORK</a>
+        <a href="#about" onClick={closeMenu}>STUDIO</a>
+        <a href="#contact" onClick={closeMenu}>CONTACT <ArrowUpRight size={15} aria-hidden="true" /></a>
+      </nav>
+      <button className="menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="site-navigation" aria-label={menuOpen ? 'Close menu' : 'Open menu'} onClick={() => setMenuOpen(v => !v)}>{menuOpen ? <X size={23}/> : <Menu size={23}/>}</button>
+    </header>
+    <main id="top">
+      <section className="opening-video" aria-label="Yellow Couch opening film">
+        <video className="opening-video-media" autoPlay muted loop playsInline preload="metadata" aria-label="Silent animation studio opening film">
+          <source src="/opening-muted.mp4" type="video/mp4" />
+        </video>
+        <a className="scroll-cue" href="#showreel">SCROLL TO EXPLORE <ArrowDown size={18} aria-hidden="true"/></a>
+      </section>
+      <section className="showreel-section" id="showreel">
+        <div className="showreel-inner reveal">
+          <div className="showreel-heading"><h1>SHOWREEL<span className="period">.</span></h1><p>Different worlds. One creative spirit.</p></div>
+          <video className="showreel-player" controls playsInline preload="metadata" aria-label="Yellow Couch showreel with audio">
+            <source src="/showreel-with-audio.mp4" type="video/mp4"/>
+            Your browser does not support video playback.
+          </video>
+        </div>
+      </section>
+      <section className="work-section" id="work">
+        <div className="section-container">
+          <h2 className="work-title reveal">SELECTED WORK<span className="period">.</span></h2>
+          <div className="work-grid">
+            {projects.map(project => <button key={project.id} type="button" className={'work-card reveal '+project.color} onClick={() => setSelected(project)} aria-label={'Open '+project.title+' video and details'}>
+              <ReelStill start={project.start}/>
+              <span className="work-card-play" aria-hidden="true"><Play size={25} fill="currentColor"/></span>
+            </button>)}
+          </div>
+          <p className="portfolio-note">Temporary gallery using moments from our showreel. Individual project videos and information will follow.</p>
+        </div>
+      </section>
+      <section className="studio-section" id="about">
+        <div className="section-container studio-layout">
+          <div className="studio-head reveal">
+            <h2>NO TWO<br/>IDEAS <span>LOOK</span><br/>THE SAME.</h2>
+          </div>
+          <div className="studio-details reveal">
+            <div className="experience"><strong>20<span>+</span></strong><span>YEARS OF CREATIVE EXPERIENCE</span></div>
+            <p>We come from film, animation and the arts. Decades of craft, storytelling and visual thinking shape everything we make.</p>
+            <p>Today we combine that foundation with new technology and AI — choosing the right tools for every idea.</p>
+          </div>
+        </div>
+      </section>
+      <section className="playground-section" id="playground">
+        <div className="section-container">
+          <div className="playground-intro reveal">
+            <h2>OUR <span>PLAYGROUND</span><span className="period">.</span></h2>
+            <p>Yellow Couch is a creative agency and animation studio. We mix live action, 2D, 3D and AI-powered workflows to make work that feels original.</p>
+          </div>
+          <div className="capabilities-grid">{capabilities.map(([title, detail]) => <div className="capability reveal" key={title}><h3>{title}</h3><p>{detail}</p></div>)}</div>
+        </div>
+      </section>
+      <section className="contact-section" id="contact">
+        <div className="section-container contact-content reveal">
+          <h2>HAVE A<br/><em>WILD IDEA?</em></h2>
+          <p>We'd love to hear about it.</p>
+          <span className="contact-placeholder">Contact details coming soon.</span>
+        </div>
+      </section>
+    </main>
+    <footer className="site-footer"><a className="wordmark" href="#top">YELLOW COUCH</a><span>© {new Date().getFullYear()} YELLOW COUCH STUDIO</span><a href="#top">BACK TO TOP ↑</a></footer>
+    {selected && <div className="modal-backdrop" onMouseDown={e => { if (e.target === e.currentTarget) setSelected(null); }}>
+      <div className="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-dialog-title" aria-describedby="project-dialog-description">
+        <div className="modal-header"><span>YELLOW COUCH / SELECTED WORK</span><button ref={closeButton} className="modal-close" type="button" onClick={() => setSelected(null)} aria-label="Close project"><X size={24}/></button></div>
+        <video key={selected.id} ref={modalVideo} className="modal-video" controls playsInline preload="metadata" aria-label={selected.title+' video'}>
+          <source src="/showreel-with-audio.mp4" type="video/mp4"/>
+        </video>
+        <div className="modal-description"><h3 id="project-dialog-title">{selected.title}</h3><p id="project-dialog-description">{selected.description}</p></div>
+      </div>
+    </div>}
+  </>;
+}
+createRoot(document.getElementById('root')).render(<App />);
