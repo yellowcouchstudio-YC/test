@@ -534,3 +534,28 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
     line-height:.94;
   }
 }
+
+/* Mobile-only scroll identity: original couch path, no separate animation asset. */
+.site-header .header-wordmark{position:relative;overflow:visible;transition:width .3s ease;flex-shrink:0}
+.site-header .header-wordmark .logo-full,
+.site-header .header-wordmark .logo-couch{
+  position:absolute;left:0;top:0;width:100%;height:100%;
+  object-fit:contain;object-position:left center;
+  transition:opacity .28s ease,transform .32s ease;
+}
+.site-header .header-wordmark .logo-full{opacity:1;transform:translateY(0) scale(1)}
+.site-header .header-wordmark .logo-couch{opacity:0;transform:translateY(3px) scale(.88);pointer-events:none}
+@media(max-width:760px){
+  .site-header .header-wordmark{width:160px;min-width:0;height:62px}
+  .site-header.logo-compact .header-wordmark{width:64px}
+  .site-header.logo-compact .header-wordmark .logo-full{opacity:0;transform:translateY(-3px) scale(.94)}
+  .site-header.logo-compact .header-wordmark .logo-couch{opacity:1;transform:translateY(0) scale(1)}
+}
+@media(min-width:761px){
+  .site-header .header-wordmark .logo-couch{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .site-header .header-wordmark,
+  .site-header .header-wordmark .logo-full,
+  .site-header .header-wordmark .logo-couch{transition:none}
+}

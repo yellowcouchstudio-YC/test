@@ -86,6 +86,7 @@ function TypeLine({ parts, start = 0, children }) {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [compactLogo, setCompactLogo] = useState(false);
   const [selected, setSelected] = useState(null);
   const [videoError, setVideoError] = useState(false);
   const modalVideo = useRef(null);
@@ -127,11 +128,18 @@ function App() {
     };
   }, [selected]);
 
+  useEffect(() => {
+    const updateLogo = () => setCompactLogo(window.scrollY > 130);
+    updateLogo();
+    window.addEventListener('scroll', updateLogo, { passive: true });
+    return () => window.removeEventListener('scroll', updateLogo);
+  }, []);
+
   useEffect(() => { setVideoError(false); }, [selected]);
 
   return <>
-    <header className="site-header">
-      <a className="wordmark" href="#top" onClick={closeMenu} aria-label="Yellow Couch Studio — back to top"><img src="/yellow-couch-logo.svg" alt="Yellow Couch Studio" /></a>
+    <header className={"site-header" + (compactLogo ? " logo-compact" : "")}>
+      <a className="wordmark header-wordmark" href="#top" onClick={closeMenu} aria-label="Yellow Couch Studio — back to top"><img className="logo-full" src="/yellow-couch-logo.svg" alt="" /><img className="logo-couch" src="/yellow-couch-couch.svg" alt="" /></a>
       <nav className={menuOpen ? 'nav-links is-open' : 'nav-links'} id="site-navigation" aria-label="Main navigation">
         <a href="#work" onClick={closeMenu}>WORK</a>
         <a href="#about" onClick={closeMenu}>STUDIO</a>
