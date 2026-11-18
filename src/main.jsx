@@ -177,7 +177,7 @@ function App() {
             {[0,1].map(column => <div className="work-column" key={column}>
               {projects.filter((_, index) => index % 2 === column).map(project => <button key={project.id} type="button" className={'work-card reveal '+project.color} style={{aspectRatio: project.aspect}} onClick={() => setSelected(project)} aria-label={'Open '+project.title+' video and details'}>
                 <ReelStill start={project.start}/>
-                <span className="work-card-index" aria-hidden="true">YC / {project.id}</span>
+                
                 <span className="work-card-play" aria-hidden="true"><Play size={25} fill="currentColor"/></span>
               </button>)}
             </div>)}
