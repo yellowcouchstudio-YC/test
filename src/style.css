@@ -390,3 +390,70 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
   .work-placeholder-plus{font-size:35px}
   .work-placeholder-label{font-size:8px}
 }
+
+/* November refinement: clean play-symbol arrows, consistent editorial type */
+.scroll-cue{
+  position:relative;bottom:auto;left:auto;transform:none;
+  display:flex;align-items:center;justify-content:center;
+  width:40px;height:40px;margin:clamp(30px,4vw,56px) auto 0;
+  color:#f2b31a;text-shadow:none;
+}
+.scroll-cue:hover{opacity:1}
+.scroll-cue .yc-triangle{animation:yc-arrow-down 2.4s ease-in-out infinite}
+.yc-triangle{
+  display:block;width:0;height:0;flex:none;
+  border-style:solid;border-color:transparent;
+}
+.yc-triangle-down{
+  border-width:11px 8px 0 8px;
+  border-top-color:#f2b31a;
+}
+.yc-triangle-right{
+  border-width:8px 0 8px 11px;
+  border-left-color:#f2b31a;
+}
+@keyframes yc-arrow-down{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+.contact-button .yc-triangle{transition:transform .22s ease}
+.contact-button:hover .yc-triangle,.contact-button:focus-visible .yc-triangle{transform:translateX(4px)}
+/* The plus sits centrally alongside the 20, not above it. */
+.experience strong{display:inline-flex;align-items:center;gap:0;white-space:nowrap;line-height:.8}
+.experience strong .experience-plus{
+  display:inline-block;position:static;top:auto;vertical-align:baseline;
+  font-size:.68em;line-height:1;transform:translateY(.015em);letter-spacing:-.08em;
+}
+/* Use the Playground headline as the common typography reference. */
+.studio-head h2,.work-title,.showreel-heading h2,.playground-intro h2,.contact-content h2{
+  font-family:'Bricolage Grotesque','Instrument Sans',Arial,sans-serif;
+  font-optical-sizing:auto;font-weight:800;letter-spacing:-.065em;line-height:.98;
+}
+.studio-head h2{line-height:.96}
+.showreel-heading h2 .brand-punct{
+  margin-left:.12em;
+}
+.work-title .brand-punct,.playground-intro h2 .brand-punct,.studio-head h2 .brand-punct{
+  margin-left:.085em;
+}
+/* Keep the font's original question-mark curve and fully replace its round dot. */
+.contact-content h2 .question-mark{
+  display:inline-block;position:relative;width:auto;height:auto;
+  line-height:inherit;vertical-align:baseline;overflow:visible;
+  color:#865724;font-family:inherit;font-weight:inherit;font-size:inherit;
+}
+.contact-content h2 .question-mark::after{content:none!important}
+.contact-content h2 .question-square{
+  position:absolute;display:block;
+  width:.155em;height:.155em;
+  left:50%;bottom:.075em;transform:translateX(-50%);
+  background:#f2b31a;border-radius:0;
+  box-shadow:0 0 0 .07em #f6e3c5;
+  pointer-events:none;
+}
+@media(max-width:760px){
+  .scroll-cue{margin-top:28px;width:36px;height:36px}
+  .experience strong .experience-plus{font-size:.68em}
+  .contact-content h2 .question-square{bottom:.075em}
+}
+@media(prefers-reduced-motion:reduce){
+  .scroll-cue .yc-triangle{animation:none}
+  .contact-button .yc-triangle{transition:none}
+}

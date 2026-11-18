@@ -149,7 +149,7 @@ function App() {
               <source src="/opening-muted.mp4" type="video/mp4" />
             </video>
           </div>
-          <a className="scroll-cue" href="#about" aria-label="Scroll down to meet the studio"><span>SCROLL TO EXPLORE</span><ArrowDown size={20} aria-hidden="true"/></a>
+          <a className="scroll-cue" href="#about" aria-label="Scroll down to meet the studio"><span className="yc-triangle yc-triangle-down" aria-hidden="true"></span></a>
         </div>
       </section>
       <section className="studio-section" id="about">
@@ -158,7 +158,7 @@ function App() {
             <h2><TypeLine parts={[{text:'NO TWO'}]} start={0}/><TypeLine parts={[{text:'IDEAS '},{text:'LOOK',accent:true}]} start={9}/><TypeLine parts={[{text:'THE SAME',accent:true}]} start={22}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2>
           </div>
           <div className="studio-details reveal">
-            <div className="experience"><strong>20<span>+</span></strong><span>YEARS OF CREATIVE EXPERIENCE</span></div>
+            <div className="experience"><strong>20<span className="experience-plus">+</span></strong><span>YEARS OF CREATIVE EXPERIENCE</span></div>
             <p>We come from film, animation and the arts. Decades of craft, storytelling and visual thinking shape everything we make.</p>
             <p>Today we combine that foundation with new technology and AI — choosing the right tools for every idea.</p>
           </div>
@@ -206,9 +206,9 @@ function App() {
       </section>
       <section className="contact-section" id="contact">
         <div className="section-container contact-content reveal">
-          <h2><TypeLine parts={[{text:'HAVE A'}]} start={0}/><TypeLine parts={[{text:'WILD IDEA',italic:true}]} start={9}><span className="question-mark" aria-hidden="true">?</span></TypeLine></h2>
+          <h2><TypeLine parts={[{text:'HAVE A'}]} start={0}/><TypeLine parts={[{text:'WILD IDEA',italic:true}]} start={9}><span className="question-mark" aria-hidden="true">?<span className="question-square"></span></span></TypeLine></h2>
           <p>We'd love to hear about it.</p>
-          <a className="contact-button" href="mailto:yellowcouchstudio@gmail.com?subject=Let%27s%20talk%20about%20a%20project" aria-label="Let's talk — email Yellow Couch Studio">LET'S TALK <svg className="contact-arrow" width="28" height="24" viewBox="0 0 28 24" fill="none" aria-hidden="true"><path d="M2 12H15" stroke="currentColor" strokeWidth="2.8" strokeLinecap="square"/><path d="M12 3L26 12L12 21V3Z" fill="currentColor"/></svg></a>
+          <a className="contact-button" href="mailto:yellowcouchstudio@gmail.com?subject=Let%27s%20talk%20about%20a%20project" aria-label="Let's talk — email Yellow Couch Studio">LET'S TALK <span className="yc-triangle yc-triangle-right" aria-hidden="true"></span></a>
           <a className="contact-email" href="mailto:yellowcouchstudio@gmail.com">yellowcouchstudio@gmail.com</a>
         </div>
       </section>
