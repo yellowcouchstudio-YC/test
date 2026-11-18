@@ -28,7 +28,6 @@ function ReelStill({ start }) {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [contactNoticeOpen, setContactNoticeOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const modalVideo = useRef(null);
   const closeButton = useRef(null);
@@ -110,6 +109,7 @@ function App() {
             <div className="experience"><strong>20<span>+</span></strong><span>YEARS OF CREATIVE EXPERIENCE</span></div>
             <p>We come from film, animation and the arts. Decades of craft, storytelling and visual thinking shape everything we make.</p>
             <p>Today we combine that foundation with new technology and AI — choosing the right tools for every idea.</p>
+            <div className="studio-signature" aria-hidden="true"><span>YC / STUDIO</span><img src="/couch-mark.svg" alt="" loading="lazy" /></div>
           </div>
         </div>
       </section>
@@ -120,6 +120,7 @@ function App() {
             {[0,1].map(column => <div className="work-column" key={column}>
               {projects.filter((_, index) => index % 2 === column).map(project => <button key={project.id} type="button" className={'work-card reveal '+project.color} style={{aspectRatio: project.aspect}} onClick={() => setSelected(project)} aria-label={'Open '+project.title+' video and details'}>
                 <ReelStill start={project.start}/>
+                <span className="work-card-index" aria-hidden="true">YC / {project.id}</span>
                 <span className="work-card-play" aria-hidden="true"><Play size={25} fill="currentColor"/></span>
               </button>)}
             </div>)}
@@ -139,7 +140,11 @@ function App() {
       <section className="playground-section" id="playground">
         <div className="section-container">
           <div className="playground-intro reveal">
-            <h2>OUR <span>PLAYGROUND</span><span className="brand-punct">.</span></h2>
+            <div className="playground-title-wrap">
+              <span className="playground-eyebrow">YC / BEHIND THE FRAMES</span>
+              <h2>OUR <span>PLAYGROUND</span><span className="playground-dot" aria-hidden="true"></span></h2>
+              <img className="playground-couch" src="/couch-mark.svg" alt="" aria-hidden="true" loading="lazy" />
+            </div>
             <p>Yellow Couch is a creative agency and animation studio. We mix live action, 2D, 3D and AI-powered workflows to make work that feels original.</p>
           </div>
           <div className="capabilities-grid">{capabilities.map(([title, detail]) => <div className="capability reveal" key={title}><h3>{title}</h3><p>{detail}</p></div>)}</div>
@@ -149,8 +154,7 @@ function App() {
         <div className="section-container contact-content reveal">
           <h2>HAVE A<br/><em>WILD IDEA?</em></h2>
           <p>We'd love to hear about it.</p>
-          <button className="contact-button" type="button" aria-expanded={contactNoticeOpen} aria-controls="contact-status" onClick={() => setContactNoticeOpen(open => !open)}>GET IN TOUCH <ArrowUpRight size={21} aria-hidden="true" /></button>
-          <p className="contact-status" id="contact-status" role="status">{contactNoticeOpen ? 'We’re preparing our contact details. Please check back soon.' : 'Contact details coming soon.'}</p>
+          <a className="contact-button" href="mailto:yellowcouchstudio@gmail.com?subject=Let%27s%20talk%20about%20a%20project" aria-label="Let's talk — email Yellow Couch Studio">LET'S TALK <svg className="contact-arrow" width="28" height="24" viewBox="0 0 28 24" fill="none" aria-hidden="true"><path d="M2 12H15" stroke="currentColor" strokeWidth="2.8" strokeLinecap="square"/><path d="M12 3L26 12L12 21V3Z" fill="currentColor"/></svg></a>
         </div>
       </section>
     </main>

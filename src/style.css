@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 :root{--ink:#171714;--deep:#151512;--paper:#f0ede5;--paper2:#e7e1d5;--mustard:#d7b76f;font-family:'Heebo',Arial,sans-serif;color:var(--ink);background:var(--deep);font-synthesis:none;-webkit-font-smoothing:antialiased}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px}a{color:inherit;text-decoration:none}button{font:inherit}button,a{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,video:focus-visible{outline:3px solid #d7b365;outline-offset:4px}::selection{background:#d9b46c;color:#171714}
 .section-container{width:min(90%,1480px);margin-inline:auto}section[id]{scroll-margin-top:85px}
@@ -120,4 +120,76 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
   .nav-links{top:100%;left:0;right:0;border:0;border-radius:0;background:#171715}
   .studio-head h2{letter-spacing:-.055em}
   .contact-button{padding:18px 23px;min-height:59px;gap:20px}
+}
+
+/* Yellow Couch studio signature — light-weight, hand-directed details */
+.studio-head h2,.work-title,.showreel-heading h2,.playground-intro h2,.contact-content h2{
+  font-family:'Bricolage Grotesque','Instrument Sans',Arial,sans-serif;
+  font-optical-sizing:auto;
+  font-weight:800;
+  letter-spacing:-.055em;
+}
+.studio-head h2{letter-spacing:-.06em}
+.studio-signature{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:36px;padding-top:18px;border-top:1px solid #19181733}
+.studio-signature span,.playground-eyebrow{font-family:'Instrument Sans',Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:.19em}
+.studio-signature span{color:#5b4a39}
+.studio-signature img{display:block;width:clamp(98px,9vw,135px);height:auto;transform:rotate(-4deg);transform-origin:center}
+.work-card-index{
+  position:absolute;z-index:2;left:15px;top:14px;
+  font-family:'Instrument Sans',Arial,sans-serif;
+  font-size:10px;font-weight:700;letter-spacing:.13em;
+  color:#f6e3c5;background:#171715a8;padding:6px 8px;border-radius:2px;
+  opacity:0;transform:translateY(4px);
+  transition:opacity .25s ease,transform .25s ease;
+  pointer-events:none;
+}
+.work-card:hover .work-card-index,.work-card:focus-visible .work-card-index{opacity:1;transform:translateY(0)}
+.playground-title-wrap{position:relative;padding:0 0 clamp(50px,6vw,90px)}
+.playground-eyebrow{display:block;color:#a89a87;margin-bottom:24px}
+.playground-dot{
+  display:inline-block;vertical-align:baseline;
+  width:.14em;height:.14em;margin-left:.065em;
+  border-radius:2px;background:#f2b31a;
+  transform-origin:50% 50%;
+}
+.playground-intro.visible .playground-dot{animation:yc-dot-settle .9s cubic-bezier(.2,.9,.25,1) .15s both}
+.playground-couch{
+  position:absolute;right:6%;bottom:5px;width:clamp(90px,11vw,160px);
+  height:auto;transform:rotate(7deg);
+  filter:none;
+}
+.playground-intro.visible .playground-couch{animation:yc-couch-entrance 1s cubic-bezier(.22,1,.36,1) .1s both}
+@keyframes yc-dot-settle{from{transform:translateY(-.35em) rotate(-32deg);opacity:0}to{transform:translateY(0) rotate(0);opacity:1}}
+@keyframes yc-couch-entrance{from{transform:translateY(16px) rotate(-5deg);opacity:0}to{transform:translateY(0) rotate(7deg);opacity:1}}
+.contact-button{
+  background:#343431;color:#f2b31a;border:0;border-radius:20px;
+  padding:20px 30px;min-height:65px;gap:26px;
+  box-shadow:none;
+  font-family:'Instrument Sans',Arial,sans-serif;font-size:15px;
+  font-weight:800;letter-spacing:.055em;
+  text-decoration:none;
+  transition:background-color .22s ease,transform .22s ease;
+}
+.contact-button .contact-arrow{display:block;flex:none;transition:transform .22s ease}
+.contact-button:hover,.contact-button:focus-visible{
+  background:#242422;color:#f2b31a;transform:none;box-shadow:none;
+}
+.contact-button:hover .contact-arrow,.contact-button:focus-visible .contact-arrow{transform:translateX(5px)}
+.contact-button:active{transform:none;box-shadow:none}
+@media(max-width:760px){
+  .work-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .work-column{gap:6px;min-width:0}
+  .work-card{border-radius:4px}
+  .work-card-play{width:36px;height:36px;opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .work-card-play svg{width:16px;height:16px}
+  .work-card-index{opacity:1;transform:none;top:7px;left:7px;font-size:8px;padding:4px 5px}
+  .studio-head h2{font-size:clamp(39px,10.6vw,78px);letter-spacing:-.055em}
+  .work-title{font-size:clamp(33px,9.4vw,76px)}
+  .playground-intro h2{font-size:clamp(36px,9.4vw,76px)}
+  .playground-title-wrap{padding-bottom:55px}
+  .playground-couch{right:2%;bottom:4px;width:90px}
+  .contact-button{border-radius:17px;padding:18px 24px;min-height:59px;gap:19px}
+}
+@media(prefers-reduced-motion:reduce){
+  .playground-intro.visible .playground-dot,.playground-intro.visible .playground-couch{animation:none}
 }
