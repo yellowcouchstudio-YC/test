@@ -71,3 +71,53 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
 .playground-intro h2{font-size:clamp(52px,11vw,82px)}
 .site-footer .wordmark{width:132px;min-width:132px;height:58px}
 }
+
+/* Approved refinement: edge-to-edge navigation, warm retro accents, and studio CTA */
+.site-header{
+  top:0;left:0;transform:none;width:100%;max-width:none;height:82px;
+  background:#171715;border:0;border-radius:0;box-shadow:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+  padding-inline:clamp(20px,4vw,72px);
+}
+.nav-links a:hover,.nav-links a:focus-visible{color:#f2b31a}
+.studio-section{background:#dec7a7}
+.studio-head h2,
+.work-title,
+.showreel-heading h2,
+.playground-intro h2,
+.contact-content h2{
+  font-family:'Instrument Sans',Arial,sans-serif;
+  font-weight:800;
+  letter-spacing:-.055em;
+}
+.experience strong{font-family:'Instrument Sans',Arial,sans-serif;font-weight:800}
+.studio-head h2 .studio-accent,
+.studio-head h2 .brand-punct,
+.experience strong{color:#865724}
+.studio-head h2 .studio-accent{white-space:nowrap}
+.contact-content h2 em{color:#865724}
+.contact-button{
+  display:inline-flex;align-items:center;justify-content:center;gap:28px;
+  padding:20px 30px;min-height:65px;
+  border:1px solid #8b602d;border-radius:10px;
+  background:#a7773d;color:#fff1d9;
+  font-family:'Instrument Sans',Arial,sans-serif;
+  font-size:14px;font-weight:700;letter-spacing:.085em;
+  cursor:pointer;
+  box-shadow:inset 0 1px 0 #ffffff30,0 5px 0 #815a32;
+  transition:background-color .22s ease,transform .22s ease,box-shadow .22s ease;
+}
+.contact-button svg{transition:transform .22s ease}
+.contact-button:hover,.contact-button:focus-visible{
+  background:#92632f;transform:translateY(-2px);
+  box-shadow:inset 0 1px 0 #ffffff30,0 7px 0 #754d27;
+}
+.contact-button:hover svg,.contact-button:focus-visible svg{transform:translate(3px,-3px)}
+.contact-button:active{transform:translateY(2px);box-shadow:inset 0 1px 0 #ffffff30,0 2px 0 #754d27}
+.contact-content .contact-status{font-size:13px;line-height:1.5;color:#514536;margin:19px 0 0}
+@media(max-width:760px){
+  .site-header{top:0;left:0;width:100%;height:68px;padding:0 16px;border-radius:0}
+  .nav-links{top:100%;left:0;right:0;border:0;border-radius:0;background:#171715}
+  .studio-head h2{letter-spacing:-.055em}
+  .contact-button{padding:18px 23px;min-height:59px;gap:20px}
+}

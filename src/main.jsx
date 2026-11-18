@@ -28,6 +28,7 @@ function ReelStill({ start }) {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [contactNoticeOpen, setContactNoticeOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const modalVideo = useRef(null);
   const closeButton = useRef(null);
@@ -103,7 +104,7 @@ function App() {
       <section className="studio-section" id="about">
         <div className="section-container studio-layout">
           <div className="studio-head reveal">
-            <h2>NO TWO<br/>IDEAS LOOK<br/>THE SAME<span className="brand-punct">.</span></h2>
+            <h2>NO TWO<br/>IDEAS <span className="studio-accent">LOOK</span><br/><span className="studio-accent">THE SAME</span><span className="brand-punct">.</span></h2>
           </div>
           <div className="studio-details reveal">
             <div className="experience"><strong>20<span>+</span></strong><span>YEARS OF CREATIVE EXPERIENCE</span></div>
@@ -148,7 +149,8 @@ function App() {
         <div className="section-container contact-content reveal">
           <h2>HAVE A<br/><em>WILD IDEA?</em></h2>
           <p>We'd love to hear about it.</p>
-          <span className="contact-placeholder">Contact details coming soon.</span>
+          <button className="contact-button" type="button" aria-expanded={contactNoticeOpen} aria-controls="contact-status" onClick={() => setContactNoticeOpen(open => !open)}>GET IN TOUCH <ArrowUpRight size={21} aria-hidden="true" /></button>
+          <p className="contact-status" id="contact-status" role="status">{contactNoticeOpen ? 'We’re preparing our contact details. Please check back soon.' : 'Contact details coming soon.'}</p>
         </div>
       </section>
     </main>
