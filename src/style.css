@@ -193,3 +193,34 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
 @media(prefers-reduced-motion:reduce){
   .playground-intro.visible .playground-dot,.playground-intro.visible .playground-couch{animation:none}
 }
+
+/* Clean editorial punctuation: one logo-yellow square, one gentle reveal */
+.studio-signature,.playground-eyebrow,.playground-couch{display:none!important}
+.studio-head h2 .brand-punct,
+.work-head h2 .brand-punct,
+.showreel-heading h2 .brand-punct,
+.playground-intro h2 .brand-punct,
+.contact-content h2 .brand-punct{
+  display:inline-block;
+  position:relative;
+  width:.135em;height:.135em;
+  margin-left:.045em;
+  vertical-align:baseline;
+  border-radius:1px;
+  background:#f2b31a;
+  color:transparent;
+  transform-origin:50% 50%;
+}
+.studio-head h2 .brand-punct{background:#f2b31a}
+.playground-title-wrap{padding:0}
+.reveal.visible .brand-punct{
+  animation:yc-square-roll-in .75s cubic-bezier(.19,1,.25,1) .12s both;
+}
+@keyframes yc-square-roll-in{
+  0%{opacity:0;transform:translateX(-.24em) rotate(-95deg) scale(.65)}
+  72%{opacity:1;transform:translateX(.03em) rotate(12deg) scale(1.08)}
+  100%{opacity:1;transform:translateX(0) rotate(0) scale(1)}
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal.visible .brand-punct{animation:none;transform:none;opacity:1}
+}
