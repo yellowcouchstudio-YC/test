@@ -504,3 +504,33 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
   .contact-content h2{font-size:clamp(52px,11.5vw,88px)}
   .contact-content h2 .question-square{bottom:.11em}
 }
+
+/* Shared display scale: match the formerly larger contact headline everywhere. */
+.studio-head h2,
+.work-title,
+.showreel-heading h2,
+.playground-intro h2,
+.contact-content h2{
+  font-family:'Bricolage Grotesque','Instrument Sans',Arial,sans-serif;
+  font-size:clamp(66px,9.5vw,148px);
+  font-weight:800;
+  letter-spacing:-.065em;
+  line-height:.94;
+  font-optical-sizing:auto;
+}
+.work-title .type-line,
+.playground-intro h2 .type-line{
+  display:block;
+  white-space:nowrap;
+}
+@media(max-width:760px){
+  .studio-head h2,
+  .work-title,
+  .showreel-heading h2,
+  .playground-intro h2,
+  .contact-content h2{
+    font-size:clamp(52px,11.5vw,88px);
+    letter-spacing:-.065em;
+    line-height:.94;
+  }
+}

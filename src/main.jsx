@@ -166,7 +166,7 @@ function App() {
       </section>
       <section className="work-section" id="work">
         <div className="section-container">
-          <div className="work-head reveal"><h2 className="work-title"><TypeLine parts={[{text:'SELECTED WORK'}]}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2><p>A collection of worlds we've brought to life.</p></div>
+          <div className="work-head reveal"><h2 className="work-title"><TypeLine parts={[{text:'SELECTED'}]}/><TypeLine parts={[{text:'WORK'}]} start={10}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2><p>A collection of worlds we've brought to life.</p></div>
           <div className="work-columns">
             {[0,1].map(column => <div className="work-column" key={column}>
               {projects.filter((_, index) => index % 2 === column).map(project => project.future
@@ -197,7 +197,7 @@ function App() {
         <div className="section-container">
           <div className="playground-intro reveal">
             <div className="playground-title-wrap">
-              <h2><TypeLine parts={[{text:'OUR PLAYGROUND'}]}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2>
+              <h2><TypeLine parts={[{text:'OUR'}]}/><TypeLine parts={[{text:'PLAYGROUND'}]} start={5}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2>
             </div>
             <p>Yellow Couch is a creative agency and animation studio. We mix live action, 2D, 3D and AI-powered workflows to make work that feels original.</p>
           </div>
