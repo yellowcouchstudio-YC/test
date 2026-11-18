@@ -219,7 +219,7 @@ function App() {
         <div className="modal-header"><span>YELLOW COUCH / SELECTED WORK</span><button ref={closeButton} className="modal-close" type="button" onClick={() => setSelected(null)} aria-label="Close project"><X size={24}/></button></div>
         {videoError ? <div className="modal-video-unavailable">The full project video is being prepared for the website.</div> :
           <video key={selected.id} ref={modalVideo} className="modal-video" controls playsInline preload="metadata" poster={selected.poster} onError={() => setVideoError(true)} aria-label={selected.title+' video'}>
-            <source src={selected.video} type="video/mp4"/>
+            <source src={selected.video} type="video/mp4" onError={() => setVideoError(true)}/>
           </video>}
         <div className="modal-description"><h3 id="project-dialog-title">{selected.title}</h3><p id="project-dialog-description">{selected.description}</p></div>
       </div>
