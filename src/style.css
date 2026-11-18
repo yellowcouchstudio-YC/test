@@ -329,3 +329,6 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
   .reveal.visible .type-char,.reveal.visible .brand-punct,
   .contact-content.reveal.visible .question-mark{animation:none;opacity:1;transform:none}
 }
+
+/* Override an older generic studio span color on each individual letter. */
+.studio-head h2 .type-char{color:inherit}
