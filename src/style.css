@@ -563,3 +563,19 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
 /* Restore the unmodified question-mark glyph from the headline font. */
 .contact-content h2 .question-mark{display:inline;position:static;width:auto;height:auto;line-height:inherit;vertical-align:baseline;margin:0;overflow:visible;clip-path:none;font:inherit;color:inherit}
 .contact-content h2 .question-mark::after{content:none!important}
+
+/* Let the browser shape full words as text, retaining kerning between letters.
+   Only portfolio, showreel and playground headings use this variant. */
+.work-title .type-line-tight,
+.showreel-heading h2 .type-line-tight,
+.playground-intro h2 .type-line-tight{
+  font-kerning:normal;
+  font-feature-settings:"kern" 1;
+  letter-spacing:-.085em;
+}
+.work-title .type-line-tight .type-part,
+.showreel-heading h2 .type-line-tight .type-part,
+.playground-intro h2 .type-line-tight .type-part{
+  font-kerning:normal;
+  font-feature-settings:"kern" 1;
+}

@@ -3,14 +3,13 @@ import { createRoot } from 'react-dom/client';
 import { ArrowDown, ArrowUpRight, Menu, X, Play } from 'lucide-react';
 import './style.css';
 
-// Selected Work: three confirmed films, interleaved with future project spaces.
+// Selected Work: five films, with a balanced two-column editorial layout.
 const projects = [
   { id: 'taskora', title: 'TASKORA — TAKE BACK YOUR DAY', description: 'AI Personal Assistant · Commercial', video: '/projects/taskora-take-back-your-day.mp4', poster: '/projects/taskora-take-back-your-day.jpg', color: 'warm', aspect: '16 / 9' },
-  { id: 'future-one', future: true, aspect: '1 / 1' },
-  { id: 'future-two', future: true, aspect: '1 / 1' },
+  { id: 'girls-fashion', title: "GIRLS' FASHION", description: 'Baby & Kids Boutique · Social Media Campaign', video: '/projects/girls-fashion.mp4', poster: '/projects/girls-fashion.jpg', color: 'gold', aspect: '1072 / 1928' },
   { id: '3004', title: '3004 — GROW SMARTER', description: 'Small Garden Planning App · Investor Presentation', video: '/projects/3004-grow-smarter.mp4', poster: '/projects/3004-grow-smarter.jpg', color: 'green', aspect: '16 / 9' },
-  { id: 'collection', title: 'COLLECTION IN MOTION', description: 'Cotnot Or · Fashion Campaign · Social Media', video: '/projects/collection-in-motion.mp4', poster: '/projects/collection-in-motion.jpg', color: 'gold', aspect: '9 / 16' },
-  { id: 'future-three', future: true, aspect: '1 / 1' }
+  { id: 'boys-fashion', title: "BOYS' FASHION", description: 'Baby & Kids Boutique · Social Media Campaign', video: '/projects/boys-fashion.mp4', poster: '/projects/boys-fashion.jpg', color: 'gold', aspect: '1072 / 1928' },
+  { id: 'collection', title: 'COLLECTION IN MOTION', description: 'Cotnot Or · Fashion Campaign · Social Media', video: '/projects/collection-in-motion.mp4', poster: '/projects/collection-in-motion.jpg', color: 'gold', aspect: '9 / 16' }
 ];
 const capabilities = [
   ['Creative direction', 'Ideas, storytelling and a distinctive visual language.'],
@@ -30,7 +29,7 @@ function ProjectPoster({ project }) {
 /* Each heading types exactly once, in sequence, without CSS animation conflicts. */
 const TYPE_STEP_MS = 75;
 const TYPE_BASE_MS = 160;
-function TypeLine({ parts, start = 0, children }) {
+function TypeLine({ parts, start = 0, children, tight = false }) {
   const lineRef = useRef(null);
   const fullText = parts.map(part => part.text).join('');
   const letters = Array.from(fullText);
@@ -71,13 +70,15 @@ function TypeLine({ parts, start = 0, children }) {
   }, [fullText, start]);
 
   let index = 0;
-  return <span className="type-line" ref={lineRef} role="text" aria-label={fullText}>
+  return <span className={tight ? "type-line type-line-tight" : "type-line"} ref={lineRef} role="text" aria-label={fullText}>
     {parts.map((part, partIndex) =>
       <span className={'type-part' + (part.accent ? ' studio-accent' : '') + (part.italic ? ' type-italic' : '')} aria-hidden="true" key={partIndex}>
-        {Array.from(part.text).map((char, charIndex) => {
-          const charPosition = index++;
-          return <span className="type-char" key={charIndex} style={{visibility: charPosition < shown ? 'visible' : 'hidden'}}>{char}</span>;
-        })}
+        {tight
+          ? part.text.slice(0, Math.max(0, Math.min(part.text.length, shown - parts.slice(0, partIndex).reduce((total, item) => total + item.text.length, 0))))
+          : Array.from(part.text).map((char, charIndex) => {
+              const charPosition = index++;
+              return <span className="type-char" key={charIndex} style={{visibility: charPosition < shown ? 'visible' : 'hidden'}}>{char}</span>;
+            })}
       </span>
     )}
     {children && <span className="type-suffix" style={{visibility: shown >= letters.length ? 'visible' : 'hidden'}}>{children}</span>}
@@ -173,15 +174,11 @@ function App() {
       </section>
       <section className="work-section" id="work">
         <div className="section-container">
-          <div className="work-head reveal"><h2 className="work-title"><TypeLine parts={[{text:'SELECTED'}]}/><TypeLine parts={[{text:'WORK'}]} start={10}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2><p>A collection of worlds we've brought to life.</p></div>
+          <div className="work-head reveal"><h2 className="work-title"><TypeLine tight parts={[{text:'SELECTED'}]}/><TypeLine tight parts={[{text:'WORK'}]} start={10}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2><p>A collection of worlds we've brought to life.</p></div>
           <div className="work-columns">
             {[0,1].map(column => <div className="work-column" key={column}>
-              {projects.filter((_, index) => index % 2 === column).map(project => project.future
-                ? <div key={project.id} className="work-placeholder reveal" style={{aspectRatio: project.aspect}} aria-label="Space reserved for a future project">
-                    <span className="work-placeholder-plus" aria-hidden="true">+</span>
-                    <span className="work-placeholder-label">COMING SOON</span>
-                  </div>
-                : <button key={project.id} type="button" className={'work-card reveal '+project.color} style={{aspectRatio: project.aspect}} onClick={() => setSelected(project)} aria-label={'View '+project.title}>
+              {projects.filter((_, index) => index % 2 === column).map(project =>
+                <button key={project.id} type="button" className={'work-card reveal '+project.color} style={{aspectRatio: project.aspect}} onClick={() => setSelected(project)} aria-label={'View '+project.title}>
                     <ProjectPoster project={project}/>
                     <span className="work-card-play" aria-hidden="true"><Play size={25} fill="currentColor"/></span>
                     <span className="work-card-info"><strong>{project.title}</strong><small>{project.description}</small></span>
@@ -193,7 +190,7 @@ function App() {
       </section>
       <section className="showreel-section" id="showreel">
         <div className="showreel-inner reveal">
-          <div className="showreel-heading"><h2><TypeLine parts={[{text:'SHOWREEL'}]}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2><p>Different worlds. One creative spirit.</p></div>
+          <div className="showreel-heading"><h2><TypeLine tight parts={[{text:'SHOWREEL'}]}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2><p>Different worlds. One creative spirit.</p></div>
           <video className="showreel-player" controls playsInline preload="metadata" aria-label="Yellow Couch showreel with audio">
             <source src="/showreel-with-audio.mp4" type="video/mp4"/>
             Your browser does not support video playback.
@@ -204,7 +201,7 @@ function App() {
         <div className="section-container">
           <div className="playground-intro reveal">
             <div className="playground-title-wrap">
-              <h2><TypeLine parts={[{text:'OUR'}]}/><TypeLine parts={[{text:'PLAYGROUND'}]} start={5}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2>
+              <h2><TypeLine tight parts={[{text:'OUR'}]}/><TypeLine tight parts={[{text:'PLAYGROUND'}]} start={5}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2>
             </div>
             <p>Yellow Couch is a creative agency and animation studio. We mix live action, 2D, 3D and AI-powered workflows to make work that feels original.</p>
           </div>
