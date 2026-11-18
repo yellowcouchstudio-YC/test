@@ -332,3 +332,32 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
 
 /* Override an older generic studio span color on each individual letter. */
 .studio-head h2 .type-char{color:inherit}
+
+/* Stable JS-driven typing: no conflicting animation timelines or clipping. */
+.reveal.visible .type-char,
+.reveal .type-char{animation:none!important;clip-path:none!important;opacity:1!important}
+.reveal.visible .brand-punct,.reveal .brand-punct{
+  animation:none!important;opacity:1!important;transform:none!important;
+}
+.reveal.visible .question-mark,.reveal .question-mark{
+  animation:none!important;opacity:1!important;transform:none!important;
+}
+.type-line,.type-part,.type-char,.type-suffix{clip-path:none!important}
+.type-suffix{display:inline}
+.contact-content h2 .question-mark{
+  display:inline-block;position:relative;width:auto;height:auto;
+  vertical-align:baseline;margin-left:0;line-height:inherit;
+  font-family:inherit;font-weight:inherit;font-size:inherit;
+  font-style:normal;color:#865724;
+}
+.contact-content h2 .question-mark::after{
+  content:'';position:absolute;
+  width:.13em;height:.13em;
+  left:50%;bottom:.08em;transform:translateX(-50%);
+  background:#f2b31a;border:0;
+  box-shadow:0 0 0 .025em #f6e3c5;
+}
+.contact-email{display:table;margin:21px auto 0;color:#514536;font-family:'Instrument Sans',sans-serif;font-size:clamp(14px,1.4vw,17px);text-decoration:underline;text-underline-offset:5px}
+.contact-email:hover,.contact-email:focus-visible{color:#865724}
+.footer-email{color:#f6e3c5;font-size:12px;text-decoration:none}
+.footer-email:hover,.footer-email:focus-visible{color:#f2b31a}
