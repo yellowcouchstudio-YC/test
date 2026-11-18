@@ -26,6 +26,24 @@ function ReelStill({ start }) {
   return <video ref={ref} className="thumbnail-video" src="/showreel-with-audio.mp4" muted playsInline preload="metadata" onLoadedMetadata={onMetadata} onSeeked={e => e.currentTarget.pause()} tabIndex={-1} aria-hidden="true" disablePictureInPicture />;
 }
 
+
+/* Letter-level reveal avoids clipping the right edge of text. */
+const TYPE_STEP = 0.052;
+const TYPE_BASE = 0.16;
+function TypeLine({ parts, start = 0, children }) {
+  const fullText = parts.map(part => part.text).join('');
+  return <span className="type-line" role="text" aria-label={fullText}>
+    {parts.map((part, partIndex) => {
+      const offset = parts.slice(0, partIndex).reduce((n, item) => n + Array.from(item.text).length, 0);
+      return <span className={'type-part' + (part.accent ? ' studio-accent' : '') + (part.italic ? ' type-italic' : '')} aria-hidden="true" key={partIndex}>
+        {Array.from(part.text).map((char, charIndex) => <span className="type-char" key={charIndex} style={{'--type-delay': (TYPE_BASE + (start + offset + charIndex) * TYPE_STEP).toFixed(3) + 's'}}>{char}</span>)}
+      </span>;
+    })}
+    {children}
+  </span>;
+}
+const punctDelay = characters => ({'--punct-delay': (TYPE_BASE + characters * TYPE_STEP + 0.08).toFixed(3) + 's'});
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selected, setSelected] = useState(null);
@@ -103,7 +121,7 @@ function App() {
       <section className="studio-section" id="about">
         <div className="section-container studio-layout">
           <div className="studio-head reveal">
-            <h2><span className="headline-line"><span className="headline-copy">NO TWO</span></span><span className="headline-line"><span className="headline-copy">IDEAS <span className="studio-accent">LOOK</span></span></span><span className="headline-line"><span className="headline-copy studio-accent">THE SAME</span><span className="brand-punct" aria-hidden="true"></span></span></h2>
+            <h2><TypeLine parts={[{text:'NO TWO'}]} start={0}/><TypeLine parts={[{text:'IDEAS '},{text:'LOOK',accent:true}]} start={9}/><TypeLine parts={[{text:'THE SAME',accent:true}]} start={22}><span className="brand-punct" aria-hidden="true" style={punctDelay(30)}></span></TypeLine></h2>
           </div>
           <div className="studio-details reveal">
             <div className="experience"><strong>20<span>+</span></strong><span>YEARS OF CREATIVE EXPERIENCE</span></div>
@@ -114,7 +132,7 @@ function App() {
       </section>
       <section className="work-section" id="work">
         <div className="section-container">
-          <div className="work-head reveal"><h2 className="work-title"><span className="headline-copy">SELECTED WORK</span><span className="brand-punct" aria-hidden="true"></span></h2><p>A collection of worlds we've brought to life.</p></div>
+          <div className="work-head reveal"><h2 className="work-title"><TypeLine parts={[{text:'SELECTED WORK'}]}><span className="brand-punct" aria-hidden="true" style={punctDelay(13)}></span></TypeLine></h2><p>A collection of worlds we've brought to life.</p></div>
           <div className="work-columns">
             {[0,1].map(column => <div className="work-column" key={column}>
               {projects.filter((_, index) => index % 2 === column).map(project => <button key={project.id} type="button" className={'work-card reveal '+project.color} style={{aspectRatio: project.aspect}} onClick={() => setSelected(project)} aria-label={'Open '+project.title+' video and details'}>
@@ -129,7 +147,7 @@ function App() {
       </section>
       <section className="showreel-section" id="showreel">
         <div className="showreel-inner reveal">
-          <div className="showreel-heading"><h2><span className="headline-copy">SHOWREEL</span><span className="brand-punct" aria-hidden="true"></span></h2><p>Different worlds. One creative spirit.</p></div>
+          <div className="showreel-heading"><h2><TypeLine parts={[{text:'SHOWREEL'}]}><span className="brand-punct" aria-hidden="true" style={punctDelay(8)}></span></TypeLine></h2><p>Different worlds. One creative spirit.</p></div>
           <video className="showreel-player" controls playsInline preload="metadata" aria-label="Yellow Couch showreel with audio">
             <source src="/showreel-with-audio.mp4" type="video/mp4"/>
             Your browser does not support video playback.
@@ -140,7 +158,7 @@ function App() {
         <div className="section-container">
           <div className="playground-intro reveal">
             <div className="playground-title-wrap">
-              <h2><span className="headline-copy">OUR <span>PLAYGROUND</span></span><span className="brand-punct" aria-hidden="true"></span></h2>
+              <h2><TypeLine parts={[{text:'OUR PLAYGROUND'}]}><span className="brand-punct" aria-hidden="true" style={punctDelay(14)}></span></TypeLine></h2>
             </div>
             <p>Yellow Couch is a creative agency and animation studio. We mix live action, 2D, 3D and AI-powered workflows to make work that feels original.</p>
           </div>
@@ -149,7 +167,7 @@ function App() {
       </section>
       <section className="contact-section" id="contact">
         <div className="section-container contact-content reveal">
-          <h2><span className="headline-line"><span className="headline-copy">HAVE A</span></span><span className="headline-line"><em className="headline-copy">WILD IDEA</em><span className="question-mark" role="img" aria-label="?" ><span className="question-glyph" aria-hidden="true">?</span><span className="question-dot" aria-hidden="true"></span></span></span></h2>
+          <h2><TypeLine parts={[{text:'HAVE A'}]} start={0}/><TypeLine parts={[{text:'WILD IDEA',italic:true}]} start={9}><span className="question-mark" role="img" aria-label="?" style={punctDelay(18)}><svg viewBox="0 0 70 100" aria-hidden="true" focusable="false"><path d="M13 28C13 16 22 9 36 9C50 9 59 17 59 29C59 42 48 48 41 54C35 58 35 62 35 68" stroke="currentColor" strokeWidth="12" strokeLinecap="round" strokeLinejoin="round" fill="none"/><rect x="29" y="82" width="13" height="13" rx="1" fill="#F2B31A"/></svg></span></TypeLine></h2>
           <p>We'd love to hear about it.</p>
           <a className="contact-button" href="mailto:yellowcouchstudio@gmail.com?subject=Let%27s%20talk%20about%20a%20project" aria-label="Let's talk — email Yellow Couch Studio">LET'S TALK <svg className="contact-arrow" width="28" height="24" viewBox="0 0 28 24" fill="none" aria-hidden="true"><path d="M2 12H15" stroke="currentColor" strokeWidth="2.8" strokeLinecap="square"/><path d="M12 3L26 12L12 21V3Z" fill="currentColor"/></svg></a>
         </div>

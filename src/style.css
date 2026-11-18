@@ -292,3 +292,40 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
 /* Ensure headline text keeps its intended contrast after line wrapping. */
 .studio-head h2 .headline-copy{color:#191817}
 .studio-head h2 .headline-copy.studio-accent{color:#865724}
+
+/* Sequential, unclipped letter-by-letter headlines */
+.type-line{display:block;white-space:nowrap;overflow:visible}
+.work-title .type-line,.showreel-heading h2 .type-line,.playground-intro h2 .type-line{display:inline;white-space:normal}
+.type-part{display:inline;color:inherit;white-space:pre}
+.type-char{display:inline;white-space:pre;opacity:1}
+.studio-head h2 .type-part{color:#191817}
+.studio-head h2 .type-part.studio-accent{color:#865724}
+.contact-content h2 .type-part.type-italic{color:#865724;font-style:normal}
+.reveal.visible .type-char{animation:yc-letter-appear 1ms step-end var(--type-delay) both}
+@keyframes yc-letter-appear{from{opacity:0}to{opacity:1}}
+.reveal.visible .brand-punct{animation:yc-square-nudge .48s cubic-bezier(.24,.8,.22,1) var(--punct-delay,1s) both}
+@keyframes yc-square-nudge{
+  0%{opacity:0;transform:translateX(0) rotate(0)}
+  18%{opacity:1;transform:translateX(0) rotate(0)}
+  58%{opacity:1;transform:translateX(.18em) rotate(25deg)}
+  100%{opacity:1;transform:translateX(0) rotate(0)}
+}
+.contact-content h2 .question-mark{
+  display:inline-block;position:relative;vertical-align:-.07em;
+  width:.64em;height:.92em;margin-left:.015em;
+  line-height:1;color:#865724;transform-origin:50% 75%;
+}
+.contact-content h2 .question-mark svg{display:block;width:100%;height:100%;overflow:visible}
+.contact-content.reveal.visible .question-mark{
+  animation:yc-question-tilt .58s cubic-bezier(.2,.8,.2,1) var(--punct-delay,1.2s) both;
+}
+@keyframes yc-question-tilt{
+  0%{opacity:0;transform:rotate(0)}
+  20%{opacity:1;transform:rotate(0)}
+  58%{opacity:1;transform:rotate(12deg)}
+  100%{opacity:1;transform:rotate(0)}
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal.visible .type-char,.reveal.visible .brand-punct,
+  .contact-content.reveal.visible .question-mark{animation:none;opacity:1;transform:none}
+}
