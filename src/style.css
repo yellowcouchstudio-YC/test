@@ -579,3 +579,15 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
   font-kerning:normal;
   font-feature-settings:"kern" 1;
 }
+
+/* Keep portfolio project titles and descriptions visible on touch devices. */
+@media (hover:none), (max-width:760px){
+  .work-card .work-card-info{
+    display:block;
+    opacity:1;
+    transform:none;
+    padding:36px 14px 14px;
+  }
+  .work-card .work-card-info strong{font-size:clamp(13px,3.4vw,21px)}
+  .work-card .work-card-info small{font-size:clamp(10px,2.4vw,13px);line-height:1.4}
+}
