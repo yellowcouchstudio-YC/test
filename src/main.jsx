@@ -206,10 +206,10 @@ function App() {
       </section>
       <section className="contact-section" id="contact">
         <div className="section-container contact-content reveal">
-          <h2><TypeLine parts={[{text:'HAVE A'}]} start={0}/><TypeLine parts={[{text:'WILD IDEA',italic:true}]} start={9}><span className="question-mark" aria-hidden="true">?<span className="question-square"></span></span></TypeLine></h2>
+          <h2><TypeLine parts={[{text:'HAVE A'}]} start={0}/><TypeLine parts={[{text:'WILD IDEA',italic:true}]} start={9}><span className="question-mark" aria-hidden="true"><span className="question-curve">?</span><span className="question-square"></span></span></TypeLine></h2>
           <p>We'd love to hear about it.</p>
           <a className="contact-button" href="mailto:yellowcouchstudio@gmail.com?subject=Let%27s%20talk%20about%20a%20project" aria-label="Let's talk — email Yellow Couch Studio">LET'S TALK <span className="yc-triangle yc-triangle-right" aria-hidden="true"></span></a>
-          <a className="contact-email" href="mailto:yellowcouchstudio@gmail.com">yellowcouchstudio@gmail.com</a>
+          
         </div>
       </section>
     </main>

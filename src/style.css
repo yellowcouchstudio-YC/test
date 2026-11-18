@@ -457,3 +457,50 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
   .scroll-cue .yc-triangle{animation:none}
   .contact-button .yc-triangle{transition:none}
 }
+
+/* Final unified heading system: consistent Bricolage typography and hierarchy */
+.studio-head h2,
+.work-title,
+.showreel-heading h2,
+.playground-intro h2,
+.contact-content h2{
+  font-family:'Bricolage Grotesque','Instrument Sans',Arial,sans-serif;
+  font-size:clamp(48px,7.4vw,112px);
+  font-weight:800;
+  letter-spacing:-.065em;
+  line-height:.98;
+  font-optical-sizing:auto;
+}
+.studio-head h2{line-height:.97}
+.contact-content h2{font-size:clamp(66px,9.5vw,148px);line-height:.94}
+.contact-content .contact-email{display:none}
+/* Question mark uses the real font curve, with its native dot removed. */
+.contact-content h2 .question-mark{
+  display:inline-block;position:relative;
+  width:.61em;height:1em;
+  line-height:1;vertical-align:baseline;
+  margin-left:0;overflow:visible;
+  font:inherit;color:#865724;
+}
+.contact-content h2 .question-curve{
+  position:absolute;inset:0;
+  display:block;
+  line-height:1;
+  clip-path:inset(0 0 26% 0);
+}
+.contact-content h2 .question-square{
+  position:absolute;display:block;
+  width:.14em;height:.14em;
+  left:48%;bottom:.11em;
+  transform:translateX(-50%);
+  background:#f2b31a;border-radius:0;
+  box-shadow:none;
+}
+@media(max-width:760px){
+  .studio-head h2,.work-title,.showreel-heading h2,.playground-intro h2{
+    font-size:clamp(32px,8.9vw,68px);
+    letter-spacing:-.06em;
+  }
+  .contact-content h2{font-size:clamp(52px,11.5vw,88px)}
+  .contact-content h2 .question-square{bottom:.11em}
+}
