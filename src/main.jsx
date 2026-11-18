@@ -163,12 +163,11 @@ function App() {
       <section className="studio-section" id="about">
         <div className="section-container studio-layout">
           <div className="studio-head reveal">
-            <h2><TypeLine parts={[{text:'NO TWO'}]} start={0}/><TypeLine parts={[{text:'IDEAS '},{text:'LOOK',accent:true}]} start={9}/><TypeLine parts={[{text:'THE SAME',accent:true}]} start={22}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2>
+            <h2><TypeLine parts={[{text:'MAKE IT'}]} start={0}/><TypeLine parts={[{text:'ART',accent:true}]} start={9}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2>
           </div>
           <div className="studio-details reveal">
             <div className="experience"><strong>20<span className="experience-plus">+</span></strong><span>YEARS OF CREATIVE EXPERIENCE</span></div>
-            <p>We come from film, animation and the arts. Decades of craft, storytelling and visual thinking shape everything we make.</p>
-            <p>Today we combine that foundation with new technology and AI — choosing the right tools for every idea.</p>
+            <p>We believe even the smallest story deserves a big idea. We blend art, storytelling and technology to create work that feels anything but ordinary.</p>
           </div>
         </div>
       </section>
