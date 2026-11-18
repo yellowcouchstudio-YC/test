@@ -559,3 +559,7 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
   .site-header .header-wordmark .logo-full,
   .site-header .header-wordmark .logo-couch{transition:none}
 }
+
+/* Restore the unmodified question-mark glyph from the headline font. */
+.contact-content h2 .question-mark{display:inline;position:static;width:auto;height:auto;line-height:inherit;vertical-align:baseline;margin:0;overflow:visible;clip-path:none;font:inherit;color:inherit}
+.contact-content h2 .question-mark::after{content:none!important}
