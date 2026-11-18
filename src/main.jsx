@@ -103,7 +103,7 @@ function App() {
       <section className="studio-section" id="about">
         <div className="section-container studio-layout">
           <div className="studio-head reveal">
-            <h2>NO TWO<br/>IDEAS <span className="studio-accent">LOOK</span><br/><span className="studio-accent">THE SAME</span><span className="brand-punct" aria-hidden="true"></span></h2>
+            <h2><span className="headline-line"><span className="headline-copy">NO TWO</span></span><span className="headline-line"><span className="headline-copy">IDEAS <span className="studio-accent">LOOK</span></span></span><span className="headline-line"><span className="headline-copy studio-accent">THE SAME</span><span className="brand-punct" aria-hidden="true"></span></span></h2>
           </div>
           <div className="studio-details reveal">
             <div className="experience"><strong>20<span>+</span></strong><span>YEARS OF CREATIVE EXPERIENCE</span></div>
@@ -114,7 +114,7 @@ function App() {
       </section>
       <section className="work-section" id="work">
         <div className="section-container">
-          <div className="work-head reveal"><h2 className="work-title">SELECTED WORK<span className="brand-punct" aria-hidden="true"></span></h2><p>A collection of worlds we've brought to life.</p></div>
+          <div className="work-head reveal"><h2 className="work-title"><span className="headline-copy">SELECTED WORK</span><span className="brand-punct" aria-hidden="true"></span></h2><p>A collection of worlds we've brought to life.</p></div>
           <div className="work-columns">
             {[0,1].map(column => <div className="work-column" key={column}>
               {projects.filter((_, index) => index % 2 === column).map(project => <button key={project.id} type="button" className={'work-card reveal '+project.color} style={{aspectRatio: project.aspect}} onClick={() => setSelected(project)} aria-label={'Open '+project.title+' video and details'}>
@@ -129,7 +129,7 @@ function App() {
       </section>
       <section className="showreel-section" id="showreel">
         <div className="showreel-inner reveal">
-          <div className="showreel-heading"><h2>SHOWREEL<span className="brand-punct" aria-hidden="true"></span></h2><p>Different worlds. One creative spirit.</p></div>
+          <div className="showreel-heading"><h2><span className="headline-copy">SHOWREEL</span><span className="brand-punct" aria-hidden="true"></span></h2><p>Different worlds. One creative spirit.</p></div>
           <video className="showreel-player" controls playsInline preload="metadata" aria-label="Yellow Couch showreel with audio">
             <source src="/showreel-with-audio.mp4" type="video/mp4"/>
             Your browser does not support video playback.
@@ -140,7 +140,7 @@ function App() {
         <div className="section-container">
           <div className="playground-intro reveal">
             <div className="playground-title-wrap">
-              <h2>OUR <span>PLAYGROUND</span><span className="brand-punct" aria-hidden="true"></span></h2>
+              <h2><span className="headline-copy">OUR <span>PLAYGROUND</span></span><span className="brand-punct" aria-hidden="true"></span></h2>
             </div>
             <p>Yellow Couch is a creative agency and animation studio. We mix live action, 2D, 3D and AI-powered workflows to make work that feels original.</p>
           </div>
@@ -149,7 +149,7 @@ function App() {
       </section>
       <section className="contact-section" id="contact">
         <div className="section-container contact-content reveal">
-          <h2>HAVE A<br/><em>WILD IDEA?</em><span className="brand-punct" aria-hidden="true"></span></h2>
+          <h2><span className="headline-line"><span className="headline-copy">HAVE A</span></span><span className="headline-line"><em className="headline-copy">WILD IDEA</em><span className="question-mark" role="img" aria-label="?" ><span className="question-glyph" aria-hidden="true">?</span><span className="question-dot" aria-hidden="true"></span></span></span></h2>
           <p>We'd love to hear about it.</p>
           <a className="contact-button" href="mailto:yellowcouchstudio@gmail.com?subject=Let%27s%20talk%20about%20a%20project" aria-label="Let's talk — email Yellow Couch Studio">LET'S TALK <svg className="contact-arrow" width="28" height="24" viewBox="0 0 28 24" fill="none" aria-hidden="true"><path d="M2 12H15" stroke="currentColor" strokeWidth="2.8" strokeLinecap="square"/><path d="M12 3L26 12L12 21V3Z" fill="currentColor"/></svg></a>
         </div>

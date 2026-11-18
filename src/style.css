@@ -224,3 +224,67 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
 @media(prefers-reduced-motion:reduce){
   .reveal.visible .brand-punct{animation:none;transform:none;opacity:1}
 }
+
+/* November editorial motion: a rolling square reveals the lettering, once per section */
+.studio-section{background:#f6e3c5}
+.headline-line{display:block;white-space:nowrap}
+.headline-copy{display:inline-block;vertical-align:baseline}
+.studio-head h2 .headline-copy.studio-accent{color:#865724}
+.reveal.visible .headline-copy{
+  animation:yc-type-on 1.05s steps(20,end) .12s both;
+}
+.studio-head.reveal.visible .headline-line:nth-child(2) .headline-copy{animation-delay:.26s}
+.studio-head.reveal.visible .headline-line:nth-child(3) .headline-copy{animation-delay:.42s}
+.contact-content.reveal.visible .headline-line:nth-child(2) .headline-copy{animation-delay:.3s}
+@keyframes yc-type-on{
+  from{clip-path:inset(0 100% 0 0)}
+  to{clip-path:inset(0 0 0 0)}
+}
+.reveal.visible .brand-punct{
+  animation:yc-square-travel 1.15s cubic-bezier(.22,.75,.23,1) .12s both;
+}
+.studio-head.reveal.visible .brand-punct{animation-delay:.43s}
+@keyframes yc-square-travel{
+  0%{opacity:0;transform:translateX(-2.2em) rotate(-240deg) scale(.75)}
+  22%{opacity:1}
+  80%{transform:translateX(.06em) rotate(12deg) scale(1.08)}
+  100%{opacity:1;transform:translateX(0) rotate(0deg) scale(1)}
+}
+/* Question mark is a single punctuation mark: its dot is a brand-yellow square */
+.contact-content h2 .question-mark{
+  position:relative;display:inline-block;vertical-align:baseline;
+  font-family:'Bricolage Grotesque','Instrument Sans',sans-serif;
+  font-style:normal;color:#865724;
+  line-height:inherit;
+}
+.contact-content h2 .question-glyph{
+  display:inline-block;
+  /* Hide the glyph's round dot; replace it with our square below. */
+  clip-path:inset(0 0 20% 0);
+}
+.contact-content h2 .question-dot{
+  position:absolute;
+  width:.13em;height:.13em;
+  left:43%;bottom:.10em;
+  border-radius:1px;background:#f2b31a;
+}
+.contact-content.reveal.visible .question-mark{
+  animation:yc-question-appear .45s ease .92s both;
+}
+.contact-content.reveal.visible .question-dot{
+  animation:yc-question-square .65s cubic-bezier(.22,.75,.23,1) .95s both;
+}
+@keyframes yc-question-appear{from{opacity:0}to{opacity:1}}
+@keyframes yc-question-square{
+  0%{opacity:0;transform:translateX(-1.4em) rotate(-210deg)}
+  80%{opacity:1;transform:translateX(.03em) rotate(12deg)}
+  100%{opacity:1;transform:translateX(0) rotate(0)}
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal.visible .headline-copy,
+  .reveal.visible .brand-punct,
+  .contact-content.reveal.visible .question-mark,
+  .contact-content.reveal.visible .question-dot{
+    animation:none;clip-path:none;opacity:1;transform:none;
+  }
+}
