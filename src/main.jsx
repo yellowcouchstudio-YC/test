@@ -3,12 +3,14 @@ import { createRoot } from 'react-dom/client';
 import { ArrowDown, ArrowUpRight, Menu, X, Play } from 'lucide-react';
 import './style.css';
 
-// Temporary showreel excerpts. Replace with real project films, posters and descriptions.
+// Selected Work: three confirmed films, interleaved with future project spaces.
 const projects = [
-  { id: '01', start: 7, title: 'Showreel selection 01', description: 'A moment from the Yellow Couch showreel. Individual project details are coming soon.', color: 'warm', aspect: '16 / 9' },
-  { id: '02', start: 55, title: 'Showreel selection 02', description: 'A moment from the Yellow Couch showreel. Individual project details are coming soon.', color: 'purple', aspect: '4 / 5' },
-  { id: '03', start: 68, title: 'Showreel selection 03', description: 'A moment from the Yellow Couch showreel. Individual project details are coming soon.', color: 'gold', aspect: '3 / 4' },
-  { id: '04', start: 18, title: 'Showreel selection 04', description: 'A moment from the Yellow Couch showreel. Individual project details are coming soon.', color: 'green', aspect: '2.25 / 1' }
+  { id: 'taskora', title: 'TASKORA — TAKE BACK YOUR DAY', description: 'AI Personal Assistant · Commercial', video: '/projects/taskora-take-back-your-day.mp4', poster: '/projects/taskora-take-back-your-day.jpg', color: 'warm', aspect: '16 / 9' },
+  { id: 'future-one', future: true, aspect: '1 / 1' },
+  { id: 'future-two', future: true, aspect: '1 / 1' },
+  { id: '3004', title: '3004 — GROW SMARTER', description: 'Small Garden Planning App · Investor Presentation', video: '/projects/3004-grow-smarter.mp4', poster: '/projects/3004-grow-smarter.jpg', color: 'green', aspect: '16 / 9' },
+  { id: 'collection', title: 'COLLECTION IN MOTION', description: 'Cotnot Or · Fashion Campaign · Social Media', video: '/projects/collection-in-motion.mp4', poster: '/projects/collection-in-motion.jpg', color: 'gold', aspect: '9 / 16' },
+  { id: 'future-three', future: true, aspect: '1 / 1' }
 ];
 const capabilities = [
   ['Creative direction', 'Ideas, storytelling and a distinctive visual language.'],
@@ -17,15 +19,13 @@ const capabilities = [
   ['Mixed media & AI', 'Combining techniques, with AI as a powerful creative production tool.']
 ];
 
-function ReelStill({ start }) {
-  const ref = useRef(null);
-  const onMetadata = () => {
-    const v = ref.current;
-    if (v && Number.isFinite(v.duration)) v.currentTime = Math.min(start, Math.max(0, v.duration - 0.1));
-  };
-  return <video ref={ref} className="thumbnail-video" src="/showreel-with-audio.mp4" muted playsInline preload="metadata" onLoadedMetadata={onMetadata} onSeeked={e => e.currentTarget.pause()} tabIndex={-1} aria-hidden="true" disablePictureInPicture />;
+function ProjectPoster({ project }) {
+  const [failed, setFailed] = useState(false);
+  return <>
+    {!failed && <img className="work-card-poster" src={project.poster} alt="" loading="lazy" onError={() => setFailed(true)}/>}
+    {failed && <span className="work-card-fallback" aria-hidden="true"><span>{project.title}</span></span>}
+  </>;
 }
-
 
 /* Each heading types exactly once, in sequence, without CSS animation conflicts. */
 const TYPE_STEP_MS = 75;
@@ -87,6 +87,7 @@ function TypeLine({ parts, start = 0, children }) {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selected, setSelected] = useState(null);
+  const [videoError, setVideoError] = useState(false);
   const modalVideo = useRef(null);
   const closeButton = useRef(null);
   const previousFocus = useRef(null);
@@ -126,14 +127,7 @@ function App() {
     };
   }, [selected]);
 
-  useEffect(() => {
-    const v = modalVideo.current;
-    if (!selected || !v) return;
-    const seek = () => { try { v.currentTime = selected.start; } catch (_) {} };
-    if (v.readyState >= 1) seek();
-    else v.addEventListener('loadedmetadata', seek, { once: true });
-    return () => v.removeEventListener('loadedmetadata', seek);
-  }, [selected]);
+  useEffect(() => { setVideoError(false); }, [selected]);
 
   return <>
     <header className="site-header">
@@ -175,14 +169,19 @@ function App() {
           <div className="work-head reveal"><h2 className="work-title"><TypeLine parts={[{text:'SELECTED WORK'}]}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2><p>A collection of worlds we've brought to life.</p></div>
           <div className="work-columns">
             {[0,1].map(column => <div className="work-column" key={column}>
-              {projects.filter((_, index) => index % 2 === column).map(project => <button key={project.id} type="button" className={'work-card reveal '+project.color} style={{aspectRatio: project.aspect}} onClick={() => setSelected(project)} aria-label={'Open '+project.title+' video and details'}>
-                <ReelStill start={project.start}/>
-                
-                <span className="work-card-play" aria-hidden="true"><Play size={25} fill="currentColor"/></span>
-              </button>)}
+              {projects.filter((_, index) => index % 2 === column).map(project => project.future
+                ? <div key={project.id} className="work-placeholder reveal" style={{aspectRatio: project.aspect}} aria-label="Space reserved for a future project">
+                    <span className="work-placeholder-plus" aria-hidden="true">+</span>
+                    <span className="work-placeholder-label">COMING SOON</span>
+                  </div>
+                : <button key={project.id} type="button" className={'work-card reveal '+project.color} style={{aspectRatio: project.aspect}} onClick={() => setSelected(project)} aria-label={'View '+project.title}>
+                    <ProjectPoster project={project}/>
+                    <span className="work-card-play" aria-hidden="true"><Play size={25} fill="currentColor"/></span>
+                    <span className="work-card-info"><strong>{project.title}</strong><small>{project.description}</small></span>
+                  </button>)}
             </div>)}
           </div>
-          <p className="portfolio-note">Gallery preview: these are still excerpts from the showreel. Each real project will use its own original aspect ratio and film.</p>
+          
         </div>
       </section>
       <section className="showreel-section" id="showreel">
@@ -218,9 +217,10 @@ function App() {
     {selected && <div className="modal-backdrop" onMouseDown={e => { if (e.target === e.currentTarget) setSelected(null); }}>
       <div className="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-dialog-title" aria-describedby="project-dialog-description">
         <div className="modal-header"><span>YELLOW COUCH / SELECTED WORK</span><button ref={closeButton} className="modal-close" type="button" onClick={() => setSelected(null)} aria-label="Close project"><X size={24}/></button></div>
-        <video key={selected.id} ref={modalVideo} className="modal-video" controls playsInline preload="metadata" aria-label={selected.title+' video'}>
-          <source src="/showreel-with-audio.mp4" type="video/mp4"/>
-        </video>
+        {videoError ? <div className="modal-video-unavailable">The full project video is being prepared for the website.</div> :
+          <video key={selected.id} ref={modalVideo} className="modal-video" controls playsInline preload="metadata" poster={selected.poster} onError={() => setVideoError(true)} aria-label={selected.title+' video'}>
+            <source src={selected.video} type="video/mp4"/>
+          </video>}
         <div className="modal-description"><h3 id="project-dialog-title">{selected.title}</h3><p id="project-dialog-description">{selected.description}</p></div>
       </div>
     </div>}
