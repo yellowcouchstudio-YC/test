@@ -175,7 +175,7 @@ function App() {
         <div className="opening-shell">
           <div className="opening-frame">
             <video ref={openingVideo} className="opening-video-media" autoPlay muted={openingMuted} loop playsInline preload="metadata" onVolumeChange={e => setOpeningMuted(e.currentTarget.muted)} aria-label="Yellow Couch studio opening film">
-              <source src="/opening-muted.mp4" type="video/mp4" />
+              <source src="/showreel-with-audio.mp4" type="video/mp4" />
             </video>
             <button type="button" className={'opening-sound-toggle' + (openingMuted ? '' : ' is-unmuted')} onClick={toggleOpeningSound} aria-label={openingMuted ? 'Turn opening video sound on' : 'Mute opening video'} aria-pressed={!openingMuted} title={openingMuted ? 'Turn sound on' : 'Mute sound'}>
               {openingMuted ? <VolumeX size={21} strokeWidth={1.8} aria-hidden="true"/> : <Volume2 size={21} strokeWidth={1.8} aria-hidden="true"/>}
