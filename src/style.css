@@ -638,28 +638,39 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
   object-fit:contain;
 }
 
+/* Preserve the exact desktop mosaic on tablets and phones:
+   same columns, same project order and same portrait/landscape balance. */
 @media(max-width:760px){
-  /* Flatten the desktop groups into a two-column editorial arrangement.
-     No full-width single-card rows on mobile. */
-  .work-mosaic{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:7px;
-  }
-  .work-mosaic-top,
-  .work-mosaic-lower,
-  .work-mosaic-fashion{display:contents}
-  .work-mosaic .work-card{
-    aspect-ratio:1 / 1;
-    height:auto;
-    border-radius:4px;
-  }
-  .work-mosaic .work-card--taskora{grid-column:1;grid-row:1}
-  .work-mosaic .work-card--collection{grid-column:2;grid-row:1}
-  .work-mosaic .work-card--boys-fashion{grid-column:1;grid-row:2}
-  .work-mosaic .work-card--3004{grid-column:2;grid-row:2}
-  .work-mosaic .work-card--girls-fashion{grid-column:1;grid-row:3}
-  .work-mosaic .work-card-info{padding:30px 10px 10px}
-  .work-mosaic .work-card-info strong{font-size:clamp(11px,2.9vw,17px)}
+  .work-mosaic{--mosaic-gap:6px}
+  .work-mosaic .work-card{border-radius:4px}
+  .work-mosaic .work-card-info{padding:22px 8px 8px}
+  .work-mosaic .work-card-info strong{font-size:clamp(9px,2.55vw,15px);line-height:1.1;overflow-wrap:anywhere}
   .work-mosaic .work-card-info small{display:none}
+  .work-mosaic .work-card-play{width:32px;height:32px}
+  .work-mosaic .work-card-play svg{width:14px;height:14px}
+}
+@media(max-width:390px){
+  .work-mosaic{--mosaic-gap:5px}
+  .work-mosaic .work-card-info strong{font-size:10px}
+}
+
+/* Discreet sound control, positioned inside the opening film. */
+.opening-frame{position:relative}
+.opening-sound-toggle{
+  position:absolute;z-index:3;right:clamp(12px,1.8vw,25px);bottom:clamp(12px,1.8vw,25px);
+  display:grid;place-items:center;width:44px;height:44px;padding:0;
+  border:1px solid rgba(246,227,197,.38);border-radius:50%;
+  background:rgba(23,23,21,.52);color:#f6e3c5;
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  cursor:pointer;transition:color .2s ease,background .2s ease,border-color .2s ease;
+}
+.opening-sound-toggle:hover,.opening-sound-toggle:focus-visible{
+  color:#f2b31a;border-color:#f2b31a;background:rgba(23,23,21,.76);
+}
+.opening-sound-toggle.is-unmuted{color:#f2b31a}
+@media(max-width:760px){
+  .opening-sound-toggle{width:40px;height:40px;right:12px;bottom:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .opening-sound-toggle{transition:none}
 }

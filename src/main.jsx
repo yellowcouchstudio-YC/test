@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowDown, ArrowUpRight, Menu, X, Play } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Menu, X, Play, Volume2, VolumeX } from 'lucide-react';
 import './style.css';
 
 // Selected Work: five films, with a balanced two-column editorial layout.
@@ -100,10 +100,20 @@ function App() {
   const [compactLogo, setCompactLogo] = useState(false);
   const [selected, setSelected] = useState(null);
   const [videoError, setVideoError] = useState(false);
+  const [openingMuted, setOpeningMuted] = useState(true);
+  const openingVideo = useRef(null);
   const modalVideo = useRef(null);
   const closeButton = useRef(null);
   const previousFocus = useRef(null);
   const closeMenu = () => setMenuOpen(false);
+  const toggleOpeningSound = () => {
+    const video = openingVideo.current;
+    if (!video) return;
+    const nextMuted = !video.muted;
+    video.muted = nextMuted;
+    setOpeningMuted(nextMuted);
+    if (video.paused) video.play().catch(() => {});
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => entries.forEach(entry => {
@@ -164,9 +174,12 @@ function App() {
         <h1 className="sr-only">Yellow Couch Studio — Film, animation and creative production</h1>
         <div className="opening-shell">
           <div className="opening-frame">
-            <video className="opening-video-media" autoPlay muted loop playsInline preload="metadata" aria-label="Silent Yellow Couch studio opening film">
+            <video ref={openingVideo} className="opening-video-media" autoPlay muted={openingMuted} loop playsInline preload="metadata" onVolumeChange={e => setOpeningMuted(e.currentTarget.muted)} aria-label="Yellow Couch studio opening film">
               <source src="/opening-muted.mp4" type="video/mp4" />
             </video>
+            <button type="button" className={'opening-sound-toggle' + (openingMuted ? '' : ' is-unmuted')} onClick={toggleOpeningSound} aria-label={openingMuted ? 'Turn opening video sound on' : 'Mute opening video'} aria-pressed={!openingMuted} title={openingMuted ? 'Turn sound on' : 'Mute sound'}>
+              {openingMuted ? <VolumeX size={21} strokeWidth={1.8} aria-hidden="true"/> : <Volume2 size={21} strokeWidth={1.8} aria-hidden="true"/>}
+            </button>
           </div>
           <a className="scroll-cue" href="#about" aria-label="Scroll down to meet the studio"><span className="yc-triangle yc-triangle-down" aria-hidden="true"></span></a>
         </div>
