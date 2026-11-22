@@ -658,7 +658,7 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
 .opening-frame{position:relative}
 .opening-sound-toggle{
   position:absolute;z-index:3;right:clamp(12px,1.8vw,25px);bottom:clamp(12px,1.8vw,25px);
-  display:grid;place-items:center;width:44px;height:44px;padding:0;
+  display:grid;place-items:center;width:36px;height:36px;padding:0;
   border:1px solid rgba(246,227,197,.38);border-radius:50%;
   background:rgba(23,23,21,.52);color:#f6e3c5;
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
@@ -669,7 +669,7 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
 }
 .opening-sound-toggle.is-unmuted{color:#f2b31a}
 @media(max-width:760px){
-  .opening-sound-toggle{width:40px;height:40px;right:12px;bottom:12px}
+  .opening-sound-toggle{width:36px;height:36px;right:12px;bottom:12px}
 }
 @media(prefers-reduced-motion:reduce){
   .opening-sound-toggle{transition:none}
