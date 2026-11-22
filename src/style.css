@@ -591,3 +591,75 @@ body{background:var(--deep)}.section-container{width:min(calc(100% - 72px),1580p
   .work-card .work-card-info strong{font-size:clamp(13px,3.4vw,21px)}
   .work-card .work-card-info small{font-size:clamp(10px,2.4vw,13px);line-height:1.4}
 }
+
+
+/* Editorial Selected Work mosaic: featured landscape films, paired square fashion tiles,
+   and a narrower Collection column. Deliberate negative space below 3004. */
+.work-mosaic{
+  --mosaic-gap:clamp(8px,1.15vw,16px);
+  display:flex;
+  flex-direction:column;
+  gap:var(--mosaic-gap);
+}
+.work-mosaic-top,
+.work-mosaic-lower{display:grid;gap:var(--mosaic-gap);min-width:0}
+.work-mosaic-top{
+  grid-template-columns:minmax(0,2fr) minmax(0,1fr);
+  aspect-ratio:2.65 / 1;
+}
+.work-mosaic-top>.work-card{
+  height:100%;
+  aspect-ratio:auto;
+}
+.work-mosaic-lower{
+  grid-template-columns:minmax(0,1fr) minmax(0,2fr);
+  align-items:start;
+}
+.work-mosaic-fashion{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:var(--mosaic-gap);
+  min-width:0;
+}
+.work-mosaic-fashion>.work-card{aspect-ratio:1 / 1}
+.work-mosaic-lower>.work-card{aspect-ratio:16 / 9}
+.work-mosaic .work-card{min-width:0;min-height:0;border-radius:8px}
+.work-mosaic .work-card-poster{object-fit:cover}
+
+/* The project overlay always plays the full, uncropped source video. */
+.project-modal.is-portrait{width:min(100%,580px)}
+.project-modal.is-portrait .modal-video{
+  width:auto;
+  max-width:100%;
+  height:min(65vh,720px);
+  max-height:65vh;
+  aspect-ratio:auto;
+  margin-inline:auto;
+  object-fit:contain;
+}
+
+@media(max-width:760px){
+  /* Flatten the desktop groups into a two-column editorial arrangement.
+     No full-width single-card rows on mobile. */
+  .work-mosaic{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;
+  }
+  .work-mosaic-top,
+  .work-mosaic-lower,
+  .work-mosaic-fashion{display:contents}
+  .work-mosaic .work-card{
+    aspect-ratio:1 / 1;
+    height:auto;
+    border-radius:4px;
+  }
+  .work-mosaic .work-card--taskora{grid-column:1;grid-row:1}
+  .work-mosaic .work-card--collection{grid-column:2;grid-row:1}
+  .work-mosaic .work-card--boys-fashion{grid-column:1;grid-row:2}
+  .work-mosaic .work-card--3004{grid-column:2;grid-row:2}
+  .work-mosaic .work-card--girls-fashion{grid-column:1;grid-row:3}
+  .work-mosaic .work-card-info{padding:30px 10px 10px}
+  .work-mosaic .work-card-info strong{font-size:clamp(11px,2.9vw,17px)}
+  .work-mosaic .work-card-info small{display:none}
+}

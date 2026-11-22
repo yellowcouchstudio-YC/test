@@ -11,6 +11,8 @@ const projects = [
   { id: 'boys-fashion', title: "BOYS' FASHION", description: 'Baby & Kids Boutique · Social Media Campaign', video: '/projects/boys-fashion.mp4', poster: '/projects/boys-fashion.jpg', color: 'gold', aspect: '1072 / 1928' },
   { id: 'collection', title: 'COLLECTION IN MOTION', description: 'Cotnot Or · Fashion Campaign · Social Media', video: '/projects/collection-in-motion.mp4', poster: '/projects/collection-in-motion.jpg', color: 'gold', aspect: '9 / 16' }
 ];
+const projectById = Object.fromEntries(projects.map(project => [project.id, project]));
+
 const capabilities = [
   ['Creative direction', 'Ideas, storytelling and a distinctive visual language.'],
   ['2D & 3D animation', 'Handcrafted motion, characters and entire worlds.'],
@@ -24,6 +26,14 @@ function ProjectPoster({ project }) {
     {!failed && <img className="work-card-poster" src={project.poster} alt="" loading="lazy" onError={() => setFailed(true)}/>}
     {failed && <span className="work-card-fallback" aria-hidden="true"><span>{project.title}</span></span>}
   </>;
+}
+
+function WorkCard({ project, onOpen }) {
+  return <button type="button" className={'work-card work-card--' + project.id + ' reveal ' + project.color} onClick={() => onOpen(project)} aria-label={'View ' + project.title}>
+    <ProjectPoster project={project}/>
+    <span className="work-card-play" aria-hidden="true"><Play size={25} fill="currentColor"/></span>
+    <span className="work-card-info"><strong>{project.title}</strong><small>{project.description}</small></span>
+  </button>;
 }
 
 /* Each heading types exactly once, in sequence, without CSS animation conflicts. */
@@ -175,15 +185,18 @@ function App() {
       <section className="work-section" id="work">
         <div className="section-container">
           <div className="work-head reveal"><h2 className="work-title"><TypeLine tight parts={[{text:'SELECTED'}]}/><TypeLine tight parts={[{text:'WORK'}]} start={10}><span className="brand-punct" aria-hidden="true"></span></TypeLine></h2><p>A collection of worlds we've brought to life.</p></div>
-          <div className="work-columns">
-            {[0,1].map(column => <div className="work-column" key={column}>
-              {projects.filter((_, index) => index % 2 === column).map(project =>
-                <button key={project.id} type="button" className={'work-card reveal '+project.color} style={{aspectRatio: project.aspect}} onClick={() => setSelected(project)} aria-label={'View '+project.title}>
-                    <ProjectPoster project={project}/>
-                    <span className="work-card-play" aria-hidden="true"><Play size={25} fill="currentColor"/></span>
-                    <span className="work-card-info"><strong>{project.title}</strong><small>{project.description}</small></span>
-                  </button>)}
-            </div>)}
+          <div className="work-mosaic" aria-label="Selected work projects">
+            <div className="work-mosaic-top">
+              <WorkCard project={projectById.taskora} onOpen={setSelected}/>
+              <WorkCard project={projectById.collection} onOpen={setSelected}/>
+            </div>
+            <div className="work-mosaic-lower">
+              <div className="work-mosaic-fashion">
+                <WorkCard project={projectById['boys-fashion']} onOpen={setSelected}/>
+                <WorkCard project={projectById['girls-fashion']} onOpen={setSelected}/>
+              </div>
+              <WorkCard project={projectById['3004']} onOpen={setSelected}/>
+            </div>
           </div>
           
         </div>
@@ -219,7 +232,7 @@ function App() {
     </main>
     <footer className="site-footer"><a className="wordmark" href="#top" aria-label="Yellow Couch Studio — back to top"><img src="/yellow-couch-logo.svg" alt="Yellow Couch Studio" /></a><span>© {new Date().getFullYear()} YELLOW COUCH STUDIO</span><a className="footer-email" href="mailto:yellowcouchstudio@gmail.com">yellowcouchstudio@gmail.com</a><a href="#top">BACK TO TOP ↑</a></footer>
     {selected && <div className="modal-backdrop" onMouseDown={e => { if (e.target === e.currentTarget) setSelected(null); }}>
-      <div className="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-dialog-title" aria-describedby="project-dialog-description">
+      <div className={'project-modal' + (selected.aspect !== '16 / 9' ? ' is-portrait' : '')} role="dialog" aria-modal="true" aria-labelledby="project-dialog-title" aria-describedby="project-dialog-description">
         <div className="modal-header"><span>YELLOW COUCH / SELECTED WORK</span><button ref={closeButton} className="modal-close" type="button" onClick={() => setSelected(null)} aria-label="Close project"><X size={24}/></button></div>
         {videoError ? <div className="modal-video-unavailable">The full project video is being prepared for the website.</div> :
           <video key={selected.id} ref={modalVideo} className="modal-video" controls playsInline preload="metadata" poster={selected.poster} onError={() => setVideoError(true)} aria-label={selected.title+' video'}>
